@@ -9,8 +9,12 @@ public class GameUI : MonoBehaviour
     [SerializeField] private GameObject[] cropPrefabs;
     private Vector3[] instantiatePos;
     private int cashForCrops;
+    private int cash;
+    private float hunger;
+    public GameObject Button1, Button2;
     public void BackToMenu()
     {
+        GameManager.Instance.IsGameOver = true;
         SceneManager.LoadScene(0);
     }
     public void PlantCrop()
@@ -32,7 +36,7 @@ public class GameUI : MonoBehaviour
             {
                 instantiatePos[i] = cropLocations[i].position + new Vector3(0f, 2.3f, 0f);
             }
-            if (GameObject.FindObjectOfType<Food>() == null)
+            if (FindObjectOfType<Food>() == null)
             {
                 StartCoroutine(PlantDelay());
             }
@@ -79,4 +83,24 @@ public class GameUI : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(0.5f,1f));
         }
     }
+    public void GetInfo(float foodAmount, int cashAmount)
+    {
+        hunger = foodAmount;
+        cash = cashAmount;
+        Button1.SetActive(true);
+        Button2.SetActive(true);
+    }
+    public void Sell()
+    {
+        GameManager.Instance.UpdateCash(cash);
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+    }
+    public void Eat()
+    {
+        GameManager.Instance.UpdateHunger(hunger);
+        Button1.SetActive(false);
+        Button2.SetActive(false);
+    }
+    
 }

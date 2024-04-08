@@ -706,6 +706,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eca45289dcd3ce24cb818b0bd7766dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cropsSold: 0
+  cropsEaten: 0
+  IsGameOver: 0
 --- !u!1 &892459570
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,14 +8,7 @@ public class Watermelon : Food
     {
         hungerAmount = 70f;
         sellValue = 400;
-        growthRate = 100f;
-        seedAmount = 2;
-        foodType = 2;
-        canEat = false;
     }
 
-    private void OnMouseDown()
-    {
-        Destroy(gameObject);
-    }
+    
 }

@@ -10,6 +10,7 @@ public class MainMenuUIHandler : MonoBehaviour
 {
     public void StartNew()
     {
+        GameManager.Instance.IsGameOver = false;
         SceneManager.LoadScene(1);
     }
 

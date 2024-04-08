@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     private int[] foodAmount;
     [SerializeField] private int cropsSold;
     [SerializeField] private int cropsEaten;
-
+    private float timeElapsed = 0.5f;
+    private float timeInterval = 0.5f;
+    public bool IsGameOver = false;
+    
     public int Cash
     {
         get { return cash; }
@@ -32,9 +35,9 @@ public class GameManager : MonoBehaviour
         get { return hunger; }
         set 
         { 
-            if (hunger + value > 100)
+            if (value > 70)
             {
-                Debug.LogError("You cant set value greater than stomach");
+                hunger = 100;
             }
             else
             {
@@ -42,28 +45,9 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    public void FoodUpdate(int foodType)
-    {
-        switch(foodType)
-        {
-            case 0:
-                foodAmount[0]++;
-                break;
-            case 1:
-                foodAmount[1]++;
-                break;
-            case 2:
-                foodAmount[2]++;
-                break;
-            default:
-                //do nothing
-                break;
-        }
-    }
     private void Awake()
     {
-        if(Instance != null)
+        if (Instance != null)
         {
             Destroy(gameObject);
             return;
@@ -71,27 +55,85 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
+    
+    
     private void Start()
     {
         hunger = 100f;
         cash = 500;
     }
+    private void Update()
+    {
+        if (!IsGameOver)
+        {
+            if (timeElapsed > Time.deltaTime)
+            {
+                timeElapsed -= Time.deltaTime;
+            }
+            else
+            {
+                DeductHunger();
+                timeElapsed = timeInterval;
+            }
+        }
+    }
+    //public void FoodUpdate(int foodType)
+    //{
+    //    switch (foodType)
+    //    {
+    //        case 0:
+    //            foodAmount[0]++;
+    //            break;
+    //        case 1:
+    //            foodAmount[1]++;
+    //            break;
+    //        case 2:
+    //            foodAmount[2]++;
+    //            break;
+    //        default:
+    //            //do nothing
+    //            break;
+    //    }
+    //}
     public void UpdateHunger(float hungerAmount)
     {
-        if(hunger+hungerAmount !> 100)
+        if((hunger+hungerAmount) > 100)
         {
-            hunger += hungerAmount;
+            hunger = 100;
             cropsEaten++;
         }
         else
         {
-            Debug.Log("Full");
+            hunger += hungerAmount;
+            cropsEaten++;
         }
     }
 
     public void UpdateCash(int cashAmount)
     {
         cash += cashAmount;
+        if(cashAmount<0)
+        {
+            return;
+        }
         cropsSold++;
+    }
+
+    private void GameOver()
+    {
+        IsGameOver = true;
+        cropsEaten = 0;
+        cropsSold = 0;
+        hunger = 100f;
+        cash = 500;
+    }
+
+    private void DeductHunger()
+    {
+        hunger -= 1f;
+        if(hunger < 1)
+        {
+            GameOver();
+        }
     }
 }
