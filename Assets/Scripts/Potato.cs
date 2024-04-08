@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Potato : Food
 {
-    // Start is called before the first frame update
+    
     private void Start()
     {
         Init();
@@ -13,14 +13,15 @@ public class Potato : Food
     {
         hungerAmount = 10f;
         sellValue = 50;
-        growthRate = 30f;
+        growthRate = 10f;
         seedAmount = 4;
         foodType = 0;
+        canEat = false;
     }
 
-    private void Update()
+
+    private void OnMouseDown()
     {
-        
+        Destroy(gameObject);
     }
-
 }

@@ -11,5 +11,11 @@ public class Tomato : Food
         growthRate = 40f;
         seedAmount = 3;
         foodType = 1;
+        canEat = false;
+    }
+
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
     }
 }

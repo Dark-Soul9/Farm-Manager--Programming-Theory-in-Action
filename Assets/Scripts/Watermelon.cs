@@ -11,5 +11,11 @@ public class Watermelon : Food
         growthRate = 100f;
         seedAmount = 2;
         foodType = 2;
+        canEat = false;
+    }
+
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
     }
 }

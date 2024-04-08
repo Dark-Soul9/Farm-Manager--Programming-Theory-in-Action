@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Food : MonoBehaviour
+public abstract class Food : MonoBehaviour
 {
     protected float hungerAmount;
     protected int sellValue;
@@ -10,11 +10,10 @@ public class Food : MonoBehaviour
     protected int seedAmount;
     protected bool isGrown;
     protected int foodType;
+    protected bool canEat;
 
-    protected virtual void Init()
-    {
+    protected abstract void Init();
 
-    }
     private void Start()
     {
         Init();
@@ -24,13 +23,6 @@ public class Food : MonoBehaviour
         
     }
 
-    protected void OnClick()
-    {
-        if(isGrown)
-        {
-            //collect
-        }
-    }
     protected void GiveHunger()
     {
 
