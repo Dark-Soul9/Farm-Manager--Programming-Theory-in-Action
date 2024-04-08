@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Food : MonoBehaviour
+public abstract class Food : MonoBehaviour //Parent Class
 {
     protected GameUI gameUI;
     protected float hungerAmount;

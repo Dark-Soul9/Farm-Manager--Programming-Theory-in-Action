@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     private float hunger;
     private int cash = 500;
-    private int[] foodAmount;
-    [SerializeField] private int cropsSold;
-    [SerializeField] private int cropsEaten;
     private float timeElapsed = 0.5f;
     private float timeInterval = 0.5f;
     public bool IsGameOver = false;
     
+    //Encapsulation
     public int Cash
     {
         get { return cash; }
@@ -29,7 +28,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    //Encapsulation
     public float Hunger
     {
         get { return hunger; }
@@ -77,35 +76,16 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    //public void FoodUpdate(int foodType)
-    //{
-    //    switch (foodType)
-    //    {
-    //        case 0:
-    //            foodAmount[0]++;
-    //            break;
-    //        case 1:
-    //            foodAmount[1]++;
-    //            break;
-    //        case 2:
-    //            foodAmount[2]++;
-    //            break;
-    //        default:
-    //            //do nothing
-    //            break;
-    //    }
-    //}
+    
     public void UpdateHunger(float hungerAmount)
     {
         if((hunger+hungerAmount) > 100)
         {
             hunger = 100;
-            cropsEaten++;
         }
         else
         {
             hunger += hungerAmount;
-            cropsEaten++;
         }
     }
 
@@ -116,14 +96,11 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        cropsSold++;
     }
 
     private void GameOver()
     {
         IsGameOver = true;
-        cropsEaten = 0;
-        cropsSold = 0;
         hunger = 100f;
         cash = 500;
     }
